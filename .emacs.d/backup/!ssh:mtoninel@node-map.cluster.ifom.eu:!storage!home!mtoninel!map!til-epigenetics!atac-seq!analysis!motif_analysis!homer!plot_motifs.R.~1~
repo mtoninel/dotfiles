@@ -1,0 +1,20 @@
+#! usr/bin/env R
+
+options(repr.plot.height=15, repr.plot.width=15)
+
+tmp1 <- tempfile()
+tmp2 <- tempfile()
+
+system(paste('tail -n +2', path1, '>', tmp1), intern=TRUE)
+output_trimmed1 <- read.table(tmp1, header=F,  sep='\t') %>% .[c('V1', 'V4', 'V7', 'V9')] %>%  mutate(name = lapply(.$V1,function(x){unlist(strsplit(x, '\\('))[1]}), 
+                                                                                                        foldenrichment = as.numeric(strsplit(.$V7, '%')) / as.numeric(strsplit(.$V9, '%')),
+                                                                                                               condition = 'enriched_KvsN') %>% .[which(.$foldenrichment!=Inf),]
+
+system(paste('tail -n +2', path2, '>', tmp2), intern=TRUE)
+output_trimmed2 <- read.table(tmp2, header=F,  sep='\t') %>% .[c('V1', 'V4', 'V7', 'V9')] %>%  mutate(name = lapply(.$V1,function(x){unlist(strsplit(x, '\\('))[1]}), 
+                                                                                                        foldenrichment = -(as.numeric(strsplit(.$V7, '%')) / as.numeric(strsplit(.$V9, '%'))),
+                                                                                                               condition = 'enriched_NvsK') %>% .[which(.$foldenrichment!=Inf),]
+
+unlink(tmp1); unlink(tmp2)
+
+plot_df <- rbind(output_trimmed1, output_trimmed2)

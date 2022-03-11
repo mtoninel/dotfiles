@@ -1,0 +1,115 @@
+%PREAMBLE
+\documentclass[a4paper, 13pt, oneside]{report}
+\linespread{1.5} %space between lines
+
+\pagestyle{plain}
+
+\usepackage{geometry} %margins
+\geometry{a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm, bindingoffset=5mm}
+
+\usepackage{graphicx}
+\graphicspath{immagini/}
+\usepackage{multicol} %più colonne
+\usepackage{ragged2e} %allineamento testo
+\usepackage{lmodern} % use modern font style
+
+\usepackage[english]{babel} %main language
+
+\usepackage[sorting=none,backend=biber,refsection=chapter]{biblatex} %bibliography
+\addbibresource{Import bib file here}
+
+\usepackage{comment}
+\usepackage{xpatch}
+\usepackage{blindtext}
+
+\makeatletter
+
+\xpatchcmd{\@makeschapterhead}{%
+  \Huge \bfseries  #1\par\nobreak%
+}{%
+  \Huge \bfseries\centering #1\par\nobreak%
+}{\typeout{Patched makeschapterhead}}{\typeout{patching of @makeschapterhead failed}}
+
+
+\xpatchcmd{\@makechapterhead}{%
+  \huge\bfseries \@chapapp\space \thechapter
+}{%
+  \huge\bfseries\centering \@chapapp\space \thechapter
+}{\typeout{Patched @makechapterhead}}{\typeout{Patching of @makechapterhead failed}}
+
+\makeatother
+
+\usepackage{fancyhdr}
+\usepackage[export]{adjustbox}
+
+\usepackage{hyperref} %hyperlink
+\hypersetup{
+    colorlinks=true,
+    citecolor=cyan,
+    linkcolor=black,
+    urlcolor=black,
+    pdftitle=Master Thesis,
+    pdfauthor=Mattia Toninelli,
+    }
+
+\usepackage{booktabs} %per le tables
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{wrapfig}
+% PREAMBLE END
+
+%DOCUMENT START
+\begin{document}
+\begin{titlepage} %change \vspace{} values for the desired results
+
+\begin{center}
+	\includegraphics{/Users/mtoninel/Documents/Docs/master_thesis/figures/tesiMEDICINA_CHIRURGIA.jpg}\par
+	\vspace{0,7cm}
+	{\scshape\normalsize Master's degree programme in Medical Biotechnology \\ and Molecular Medicine\par}
+	\vspace{4cm}
+	{\schape\normalsize\bfseries TITLE HERE\par}
+	\vspace{4cm}
+	\end{center}
+	
+	\begin{multicols}{2}
+	\begin{center}
+	 	{
+                  \schape\normalsize\textbf{Supervisor:}\\ Prof. Massimiliano Pagani\\
+                 \schape\normalsize\textbf{Co-Supervisor:}\\Name of co-supervisor\par}
+	\vfill
+	\schape\normalsize\textbf{Experimental Thesis by:}\\Mattia Toninelli\\Matricola n. 953800 \par 
+	\end{center}
+	\end{multicols}
+	
+	\vfill
+
+% Bottom of the page
+	{\begin{center}
+	     \schape\large Academic Year 2020/2021
+	\end{center}}
+
+\end{titlepage}
+
+\section{Abstract}
+Insert abstract portion here    
+
+\tableofcontents
+
+% Start with section and include files as we go
+\section{Introduction}
+All the sections below, which are other files should be included and shuould have a section statement included.
+
+\section{Tabelle}
+https://www.tablesgenerator.com/
+
+\section{Bibliografia}
+Ecco una dimostrazione di come fare una citazione \cite{lysaker2010metacognition}. Ricorda che ci sono gli hyperlink, quindi prova a cliccare sulla citazione sul documento compilato. \\
+Il modo più semplice per aggiungere articolari da citare al file 'bibliografia.bib' è andare su google scholar, cercare l'articolo che ti interessa, cliccare sul simbolo ' " ' ed infine selezionare BibTex e fare copia-incolla.
+
+\medskip
+
+\end{document}

@@ -1,0 +1,24 @@
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/storage/home/'${USER}'/miniconda3univa/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/storage/home/${USER}/miniconda3univa/etc/profile.d/conda.sh" ]; then
+        . "/storage/home/${USER}/miniconda3univa/etc/profile.d/conda.sh"
+    else
+        export PATH="/storage/home/${USER}/miniconda3univa/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export JUPYTER_PORT=10060
+
+# User Defined Prompt
+PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
+TMPDIR="/storage/workingarea/MAP/til-epigenetics/bulk/tmp"
+alias atac="cd /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq"
+
+export PATH=/storage/home/mtoninel/miniconda3univa/bin:/storage/home/mtoninel/miniconda3univa/condabin:/storage/univa/bin/lx-amd64:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/bin:/storage/bioinfo/allInOne/RSEM/bin:/storage/bioinfo/allInOne/mapsplice/bin:/storage/bioinfo/allInOne/bcftools-19/bin:/storage/bioinfo/allInOne/htslib-19/bin:/storage/bioinfo/allInOne/samtools-19/bin:/storage/bioinfo/allInOne/ucsc:/storage/bioinfo/allInOne/hisat2-2.1.0:/storage/bioinfo/allInOne/cellranger-5.0.1/bin:/storage/bioinfo/allInOne/circos-0.69-6/bin:/storage/bioinfo/allInOne/Drop-seq_tools-2.0.0:/storage/bioinfo/allInOne/FastQc:/storage/bioinfo/allInOne/gatk-4.0.12.0:/storage/bioinfo/allInOne/MACS-1.4.2:/storage/bioinfo/allInOne/apt-2.10.2-x86_64-intel-linux/bin:/storage/bioinfo/allInOne/mirdeep2/bin:/storage/bioinfo/allInOne/ngsplot:/storage/bioinfo/allInOne/sicer:/storage/bioinfo/allInOne/sratoolkit.2.9.2-centos_linux64/bin:/storage/bioinfo/allInOne/strelka_2.9.10/bin:/storage/bioinfo/allInOne/meme/bin:/storage/bioinfo/allInOne/tophat-2.1.1.Linux_x86_64:/storage/bioinfo/allInOne/Trimmomatic-0.38:/storage/bioinfo/allInOne/vcftools/bin:/storage/bioinfo/allInOne/rust/.cargo:/storage/bioinfo/allInOne/rust/bin:/storage/bioinfo/allInOne/MATLAB/R2016a/bin:/storage/bioinfo/bin:/storage/home/mtoninel/singularity/envs/ArchR/bin

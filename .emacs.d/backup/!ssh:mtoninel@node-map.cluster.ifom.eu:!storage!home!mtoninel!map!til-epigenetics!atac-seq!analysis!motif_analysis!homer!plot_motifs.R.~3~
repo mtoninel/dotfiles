@@ -1,0 +1,112 @@
+#! usr/bin/env Rscript
+
+# These are within the env and installed through conda
+library(tibble)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+options(repr.plot.height=15, repr.plot.width=15)
+
+# Process arguments
+args <- commandArgs(trailingOnly=TRUE)
+
+# Check args for length 1
+if (length(args)==1){
+
+    path <- args
+    tmp <- tempfile()
+    
+    # Handle HOMER outfiles and generate additional columns, for both files.
+system(paste('tail -n +2', path, '>', tmp), intern=TRUE)
+output_trimmed <- read.table(tmp, header=F,  sep='\t') %>% as_tibble() %>% .[,c('V1', 'V4', 'V7', 'V9')] %>%
+                                                                                           mutate_all(as.character) %>%
+                                                                                                  mutate(name = lapply(.$V1,function(x){unlist(strsplit(x, '\\('))[1]}), 
+                                                                                                        foldenrichment = as.numeric(strsplit(.$V7, '%')) / as.numeric(strsplit(.$V9, '%')),
+                                                                                                        condition = 'enriched') %>% .[which(.$foldenrichment!=Inf),]
+
+# Disconnect and delete tmp files
+ unlink(tmp)
+
+output_trimmed$V4 <- as.numeric(output_trimmed$V4)
+
+plot_df <- output_trimmed
+    
+# Plot
+pdf <- ggplot(plot_df, aes(x=-V4, y=foldenrichment, fill=condition)) +
+            geom_hline(yintercept=0, alpha=0.7)+
+            geom_vline(xintercept=-log(0.05), alpha=0.7, linetype='dashed')+
+            geom_point(size=3, alpha=0.9, pch=21, color='black')+
+            scale_fill_manual(values=c('enriched'='#82D173')) +
+            scale_x_continuous(expand = c(0, 0)) + 
+                    scale_y_continuous(expand = c(0, 0)) +
+            labs(x='-log10(p-value)', y='Fold Enrichment against background')+
+            theme_minimal()+
+            theme(axis.text.x=element_text(size=12),
+                     axis.text.y=element_text(size=12),
+                     axis.title.x=element_text(size=18),
+                     axis.title.y=element_text(size=18))+
+    geom_text_repel(data=plot_df[which(plot_df$V4 <= quantile(plot_df$V4, probs=seq(0,1,0.05))[2]),], aes(label=name), color='black', max.overlaps=40)
+
+# Save plot pdf
+pdf(file='enrichment_volcano_vs_background.pdf', height=15, width=15)
+print(pdf)
+dev.off()
+
+}
+
+# Check args for length 2
+if (length(args)==2){
+
+path1 <- args[1]
+path2 <- args[2]
+
+# Create tmp files
+tmp1 <- tempfile()
+tmp2 <- tempfile()
+
+print(path1)
+print(path2)
+
+# Handle HOMER outfiles and generate additional columns, for both files.
+system(paste('tail -n +2', path1, '>', tmp1), intern=TRUE)
+output_trimmed1 <- read.table(tmp1, header=F,  sep='\t') %>% as_tibble() %>% .[,c('V1', 'V4', 'V7', 'V9')] %>%
+                                                                                           mutate_all(as.character) %>%
+                                                                                                  mutate(name = lapply(.$V1,function(x){unlist(strsplit(x, '\\('))[1]}), 
+                                                                                                        foldenrichment = as.numeric(strsplit(.$V7, '%')) / as.numeric(strsplit(.$V9, '%')),
+                                                                                                             condition = 'enriched_first_condition') %>% .[which(.$foldenrichment!=Inf),] 
+
+system(paste('tail -n +2', path2, '>', tmp2), intern=TRUE)
+output_trimmed2 <- read.table(tmp2, header=F,  sep='\t') %>% as_tibble() %>% .[,c('V1', 'V4', 'V7', 'V9')] %>%
+                                                                                           mutate_all(as.character) %>%
+                                                                                                   mutate(name = lapply(.$V1,function(x){unlist(strsplit(x, '\\('))[1]}), 
+                                                                                                        foldenrichment = -(as.numeric(strsplit(.$V7, '%')) / as.numeric(strsplit(.$V9, '%'))),
+                                                                                                              condition = 'enriched_second_condition') %>% .[which(.$foldenrichment!=Inf),]
+
+# Disconnect and delete tmp files
+unlink(tmp1); unlink(tmp2)
+
+plot_df <- rbind(output_trimmed1, output_trimmed2) %>% data.frame()
+
+plot_df$V4 <- as.numeric(plot_df$V4)
+
+# Plot
+pdf <- ggplot(plot_df, aes(x=-V4, y=foldenrichment, fill=condition)) +
+            geom_hline(yintercept=0, alpha=0.7)+
+            geom_vline(xintercept=-log(0.05), alpha=0.7, linetype='dashed')+
+            geom_point(size=3, alpha=0.9, pch=21, color='black')+
+            scale_fill_manual(values=c('enriched_first_condition'='#8C408C', 'enriched_second_condition'='#63A375')) +
+            scale_y_continuous(limits=c(-max(plot_df$foldenrichment),max(plot_df$foldenrichment)))+
+            labs(x='-log10(p-value)', y='Fold Enrichment')+
+            theme_minimal()+
+            theme(axis.text.x=element_text(size=12),
+                     axis.text.y=element_text(size=12),
+                     axis.title.x=element_text(size=18),
+                     axis.title.y=element_text(size=18))+
+    geom_text_repel(data=plot_df[which(plot_df$V4 <= quantile(plot_df$V4, probs=seq(0,1,0.05))[2]),], aes(label=name), color='black', max.overlaps=40)
+
+# Save plot pdf
+pdf(file='enrichment_volcano_vs_custom_bg.pdf', height=15, width=15)
+print(pdf)
+dev.off()
+
+}

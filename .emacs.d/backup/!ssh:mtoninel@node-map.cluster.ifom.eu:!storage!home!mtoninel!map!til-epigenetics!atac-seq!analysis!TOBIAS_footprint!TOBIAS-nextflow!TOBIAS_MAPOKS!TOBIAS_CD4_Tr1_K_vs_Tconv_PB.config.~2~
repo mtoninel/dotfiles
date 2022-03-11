@@ -1,0 +1,48 @@
+#-------------------------------------------------------------------------#
+#-------------------------- TOBIAS input data ----------------------------#
+#-------------------------------------------------------------------------#
+
+data:
+ Tconv_PB: [/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2537_R1.mLb.clN.sorted.bam, /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2540_R1.mLb.clN.sorted.bam, /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2712_R1.mLb.clN.sorted.bam]                                   #list of .bam-files
+ Tr1_K: [/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2530_R1.mLb.clN.sorted.bam, /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2532_R1.mLb.clN.sorted.bam, /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2525_R1.mLb.clN.sorted.bam, /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/results_all_samples/bwa/mergedLibrary/2527_R1.mLb.clN.sorted.bam]
+
+run_info:
+  organism: human                                #mouse/human
+  fasta: /storage/data/MAP/refs/igenomes_UCSC_hg38/Homo_sapiens/UCSC/hg38/Sequence/WholeGenomeFasta/genome.fa          #.fasta-file containing organism genome
+  blacklist: /storage/data/MAP/projects/til-epigenetics/bulk/atac-seq/ref_genome/hg38/UCSC/igenome_base/Archives/archive-2015-08-14-08-18-15/Genes/hg38.blacklist.bed     #.bed-file containing blacklisted regions
+  gtf: /storage/data/MAP/refs/annotations/gencode.v38.annotation.gtf                #.gtf-file for annotation of peaks
+  motifs: /storage/home/mtoninel/map/til-epigenetics/atac-seq/datasets/JASPAR_HS_MEME.pfm       #directory containing motifs (single files in MEME/JASPAR/PFM format) 
+  output: /storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/TOBIAS_footprint/CD4_Tr1_K_vs_Tconv_PB_meme_HS_gencode_v38                  #output directory
+
+
+#-------------------------------------------------------------------------#
+#----------------------- Default module parameters -----------------------#
+#-------------------------------------------------------------------------#
+
+macs: "--nomodel"
+
+# for parameter description see uropa manual: http://uropa-manual.readthedocs.io/config.html
+# adjust filter attribute for given gtf: ensembl gene_biotype / genecode gene_type
+# other optional parameters: --filter_attribute gene_biotype --attribute_value protein_coding
+uropa: "--feature gene --feature_anchor start --distance [10000,1000] --filter_attribute gene_biotype --attribute_value protein_coding --show_attribute gene_name,gene_id,gene_biotype"
+
+atacorrect: ""
+footprinting: ""
+bindetect: ""
+plotting: ""
+
+
+
+filter_motifs : 150
+
+#Kubernetes
+kubernetes: false #when is sett true plotting runs on Kubernetes
+kubernetes_clean_up: false #when set on true all workalods and s2 buckets will delte automaticly
+   #S3 Requierments
+name_of_secret:  's3mpi'
+name_of_pvc:  'nextflowpvc'
+namespace: 'macsek'
+username: ''
+passkey: ''
+endpoint: 'https://s3.mpi-bn.mpg.de'
+

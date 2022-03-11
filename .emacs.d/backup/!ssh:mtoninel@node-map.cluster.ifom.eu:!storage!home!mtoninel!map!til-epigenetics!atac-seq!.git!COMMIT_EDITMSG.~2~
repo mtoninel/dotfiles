@@ -1,0 +1,42 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: Mattia Toninelli <mtoninel@node-map.cluster.ifom.eu>
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   analysis/TOBIAS_footprint/scripts/motif_enrichment_from_tobias/motif_enrichment_testing.nf
+#	modified:   analysis/TOBIAS_footprint/scripts/motif_enrichment_from_tobias/nextflow.config
+#
+# Changes not staged for commit:
+#	modified:   analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/TOBIAS_nextflow_Kubernetes.nf
+#	modified:   analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/bin/TOBIAS_plot_on_Kubernetes.py
+#	modified:   analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/bin/filter_motifs_by_rna_seq_data.py
+#	modified:   analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/bin/get_best_bingfactors.py
+#	modified:   analysis/qc_report/scr/report_ATAC-seq.py
+#	deleted:    datasets/JASPAR_HS_meme
+#
+# Untracked files:
+#	analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/TOBIAS_CD4_Tr1_tissues.config
+#	analysis/TOBIAS_footprint/TOBIAS-nextflow/TOBIAS_MAPOKS/bin/create_network.py
+#	analysis/TOBIAS_footprint/scripts/motif_enrichment_from_tobias/intersect.tsv
+#	analysis/deepTools/.main.nf.swo
+#	analysis/deseq2/scripts/CD8_narrow_samples_subject_condition_CD8_Exhausted_KvsCD8_Memory_Kcorr.res.all.pval.sign.FC.only.promoters.rnk
+#	analysis/deseq2/scripts/scripts/
+#	analysis/tables/CD4_Treg_consensus_design.csv
+#	analysis/tables/CD4_consensus_no2716_design.csv
+#	analysis/tables/CD8_consensus_design.csv
+#	analysis/tables/CD8_consensus_no2717_design.csv
+#	analysis/tables/all_samples_consensus_design.csv
+#	analysis/tables/deeptools_cell_design.csv
+#	analysis/tables/deeptools_cell_design_group_cd.csv
+#	analysis/tables/deeptools_cell_design_no_group.csv
+#	analysis/tables/deeptools_tissue_design.csv
+#	analysis/tables/deeptools_tissuecell_design.csv
+#	analysis/tables/homer_files_CD8.csv
+#	analysis/tables/test_anno_config.csv
+#	datasets/JASPAR_HS_MEME.pfm
+#

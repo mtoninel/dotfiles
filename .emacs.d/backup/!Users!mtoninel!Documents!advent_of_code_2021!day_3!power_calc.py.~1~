@@ -1,0 +1,8 @@
+# PUZZLE 1
+# Calculate submarine power consumption by multiplying gamma and epsilon rates extracted from input binaries.
+
+# Read input
+while open('./binary_input.txt') as file:
+    binaries = file.readlines()
+
+    print(len(binaries[1]))

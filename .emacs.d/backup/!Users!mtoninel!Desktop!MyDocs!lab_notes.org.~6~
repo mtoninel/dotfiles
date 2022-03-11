@@ -1,0 +1,56 @@
+#+title:                                                                                           The Lab Notes File
+* Lab Meetings
+** 19/10/21 Roberta, Giulia and Jacopo - Epigenetic Rewiring
+  Identification of cell-state specific enhancer hubs with a catalitically dead CRISPR-based screening targeting.
+
+  What is a CRISPR-screening??
+  - *Arrayed screening
+  - *pooled screening*
+    Large culture with library perturbation, synthesizing plasmids and package into lentiviral vectors used to infect cells. The reradout in the most basic way is measured as an enrichment or depletion of specific guides assessed by NGS.
+  - *Perturb-seq*
+    This allows to recover via sc seq the actual guide which is perturbing the cell and therefore link single perturbation to the actual phenotype. In this case we use more guides ~5 per target to increase the chance of successful KO, while also increasing the chances of off-target effects.
+    the repressor initially selected uses two epigenomic regulators which are KRAB and MeCP2.
+
+    Results: CRISPR-off system works very well as opposed to the KRAB-MecP2 system
+
+    To ensure a stable expression of the repressor they are using a knock-in model (Xential) with the Diphteria toxin sensibility construct, cell in which the repressor has integrated will be therefore resistant to the toxin treatment for selection, which is a safer method that does not imply a fluorescent marker. This constructs were delivered using lipofectamine transfection.
+
+    The most variable part of the project might be the design and delivery of a guide library, and this is achieved by different method called CROP-seq.
+    
+    
+
+  
+  
+* Thesis Project
+
+* Various Issues
+** Magit issue
+magit not working in univa-comp since version required by magit  >= 2.2 and univa has 1.8.3, try to see if tramp is using the wrong git exec on univa if multiple versions are installed. check value of magit-remote-git-executable.
+cannot install mactex due to lacking admin privileges.
+** TODO  NOTEBOOK FOR TOBIAS
+- Join notebook with overview file manipulation
+- How many double motifs for a single tf in one peak (duplicates) are there? 26% of motifs are duplicated in Tr1 while for CD8 the value is 20%. 
+- Implement a method for concatenating files within a notebook and then also do the intersection between bed of interest and TOBIAS consensus
+- Implement a way to see accessible motifs based on a gene list (questionable)
+- looping over all the different scores, each column to define then a single heatXmap for each condition... needed?
+
+* TOBIAS Footprinting Questions
+** Open  Questions
+We have defined the way in which tobias calculates binding scores (considering depletion + accessibility).
+But still have to define how the global distribution of binding score is defined and how is the universal binding threshold obtained?? Just one value, not one for each condition of interest. 
+
+Issue Format TOBIAS:
+
+Hello Mette,
+
+Thanks for this amazing tool! I have a couple of questions regarding BINDetect which came up while I was reading the supplementary informations of the TOBIAS paper.
+In the first place, I understood the way the footprint score is calculated for each position along the genome (position that is referred to as "i" in the supplementary equations, which I'm guessing is each single base), but I'm struggling to understand how then we end up with a single footprint score for each binding site (i.e. TFBS) which is composed by multiple bases. In other words, how does the 'matching' between the footprint scores and the binding site take place? What is the operation performed across the different single-position scores?
+
+Secondly, I was wondering how is the global bound/unbound threshold calculated?
+In other words, when the BINDetect section of the supplementary says:
+"In the second step of the algorithm, every TF binding site found (for each motif given as input) is split into bound and unbound sites based on a score threshold per condition. The threshold is set at the level of significance of a normal-distribution fit to the background distribution of scores (user-defined p-value)."
+How can a single background distribution of scores be built starting from the different score distributions of the single conditions if this is really the case?
+
+Thanks,
+
+Mattia

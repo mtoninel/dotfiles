@@ -1,0 +1,16 @@
+#+title: Thesis project initial sketch overview
+Outline the main points for the thesis with initial section organization and paragraphs
+* Introduction
+* Aim and state of the art
+* Materials and methods
+** Sample origin and experimental design
+** Sequencing QC
+** Brief pipeline description
+** Trimming and Alignment 
+** Removal of dups and low-quality reads
+** Peak calling and annotation
+** Generation of a consensus peak set
+** ATAC-seq QC
+* Results
+* Discussion
+* Bibliography

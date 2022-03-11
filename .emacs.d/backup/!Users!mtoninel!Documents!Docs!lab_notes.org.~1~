@@ -1,0 +1,74 @@
+#+title:                                                                                           The Lab Notes File
+* Lab Meetings
+** 19/10/21 Roberta, Giulia and Jacopo - Epigenetic Rewiring
+  Identification of cell-state specific enhancer hubs with a catalitically dead CRISPR-based screening targeting.
+
+  What is a CRISPR-screening??
+  - *Arrayed screening*
+  - *pooled screening*
+    Large culture with library perturbation, synthesizing plasmids and package into lentiviral vectors used to infect cells. The reradout in the most basic way is measured as an enrichment or depletion of specific guides assessed by NGS.
+  - *Perturb-seq*
+    This allows to recover via sc seq the actual guide which is perturbing the cell and therefore link single perturbation to the actual phenotype. In this case we use more guides ~5 per target to increase the chance of successful KO, while also increasing the chances of off-target effects.
+    the repressor initially selected uses two epigenomic regulators which are KRAB and MeCP2.
+
+    Results: CRISPR-off system works very well as opposed to the KRAB-MecP2 system
+
+    To ensure a stable expression of the repressor they are using a knock-in model (Xential) with the Diphteria toxin sensibility construct, cell in which the repressor has integrated will be therefore resistant to the toxin treatment for selection, which is a safer method that does not imply a fluorescent marker. This constructs were delivered using lipofectamine transfection.
+
+    The most variable part of the project might be the design and delivery of a guide library, and this is achieved by different method called CROP-seq.
+    
+* Thesis Project
+** TODO Differential analysis with CD4 conventional and Tr1
+Sorting: Tr1 CD3+ CD4+ CD27+ CD195+
+Sorting: Conventional CD3+ CD4+ CD45RO+ this last one is a marker for memory-like phenotype, whilst CD45RA+ is for naive cells, this means that there are no naive here.
+Use CD4 conventional samples which are fully paired but all from NSCLC and mainly consider the ones from PB since the ones from K are composed by about 15% of Tr1.
+The CD4 conventional dataset is composed of 9 samples from 3 different subject (n187 supposedly a female but multiqc reports many Ychr reads), patient 180 is a female and patient 169 is a male. Overall they show good quality with lack of any noticeable outliers, 2711 (NAT 187) looks particularly good.
+When combining the Tr1 and Conventional datasets we obtain a dds with 21 samples and a final number of intervals corresponding to 93014.
+By applying a design formula like ~subject+condition~  the program breaks due to matrix not being full ranked, since subject ids are found in two conditions at once so batch correction cannot be modeled. This happens of course because every subject, for example 181, has three different conditions and therefore for all the dataset, each condition has been paired with one different subject id, so the two are one the linear combination of the other, thing that did not happen with the CD8s due to the fact that both memory and exhausted samples came from the same subject (most of the time). Inititial run done with a ~condition~ design, and then sva correction.
+Trying with a dds containing only Tr1 K samples and CD4 Conventional samples from PB with a design ~~cell~. Number of final intervals: 74712 with median peak length of 947 bp, UP 15205 and DOWN 11226 between CD4 Tr1 K and CD4 Conv PB.
+- DONE intersection of intervals with  information coming from Tr1 signatures (Bonnal et al. and Gruarin et al.)
+  - DONE intersect exhaustion signature intervals with up intervals in Tr1 vs Conv. 246 intervals were identified as overlapping.
+    -TODO check for the overlaps (venn) between the differentials identified in this analysis and the ones identified in the previous Tr1 analysis (the tissue one).
+    - TODO compare CD4 conv N with the Tr1 from K (??)
+** TODO Start writing methods
+In order to avoid reviewing through version control, people suggested [[https://tex.stackexchange.com/questions/4489/what-is-a-good-strategy-for-obtaining-comments-on-a-latex-document-from-non-latex][here]] to use [[http://www.crocodoc.com/][this site (doesn't work)]] which lets upload PDFs that can then be commented.
+* Various Issues
+** DONE Magit issue
+magit not working in univa-comp since version required by magit  >= 2.2 and univa has 1.8.3, try to see if tramp is using the wrong git exec on univa if multiple versions are installed. check value of magit-remote-git-executable. (should try and download a different magit version compatible with git 1.8.3)
+cannot install mactex due to lacking admin privileges.
+** TODO  NOTEBOOK FOR TOBIAS
+- [X ] Join notebook with overview file manipulation
+- [ ] How many double motifs for a single tf in one peak (duplicates) are there? 26% of motifs are duplicated in Tr1 while for CD8 the value is 20%. 
+- [X ]Implement a method for concatenating files within a notebook and then also do the intersection between bed of interest and TOBIAS consensus
+- [ ] Implement a way to see accessible motifs based on a gene list (questionable)
+- [X ]looping over all the different scores, each column to define then a single heatmap for each condition... needed?
+- Add buffer on axes to volcano to avoid cluttering at edges
+** TODO Standardize a diff analysis notebook with Carolina
+Sections to include in the standard notebook: 
+** TODO Clear space on HPC by removing all the obsolete analyses
+* TOBIAS Footprinting Questions
+** Open  Questions
+We have defined the way in which tobias calculates binding scores (considering depletion + accessibility).
+But still have to define how the global distribution of binding score is defined and how is the universal binding threshold obtained?? Just one value, not one for each condition of interest. 
+
+Issue Format TOBIAS:
+
+Hello Mette,
+
+Thanks for this amazing tool! I have a couple of questions regarding BINDetect which came up while I was reading the supplementary informations of the TOBIAS paper.
+In the first place, I understood the way the footprint score is calculated for each position along the genome (position that is referred to as "i" in the supplementary equations, which I'm guessing is each single base), but I'm struggling to understand how then we end up with a single footprint score for each binding site (i.e. TFBS) which is composed by multiple bases. In other words, how does the 'matching' between the footprint scores and the binding site take place? What is the operation performed across the different single-position scores?
+
+Secondly, I was wondering how is the global bound/unbound threshold calculated?
+In other words, when the BINDetect section of the supplementary says:
+"In the second step of the algorithm, every TF binding site found (for each motif given as input) is split into bound and unbound sites based on a score threshold per condition. The threshold is set at the level of significance of a normal-distribution fit to the background distribution of scores (user-defined p-value)."
+How can a single background distribution of scores be built starting from the different score distributions of the single conditions if this is really the case?
+
+Thanks,
+
+Mattia
+** TODO Fix footprinting including TOX pwm
+In order to include TOX pwm, which is apparently non-existing, might have to build it using gimmeMotifs and data from [[https://www.embopress.org/doi/full/10.15252/embj.201490061][this paper]] which talks about DamID motif definition for tox and provides some material to rebuild the pwm. Info about gimmeMotifs [[https://gimmemotifs.readthedocs.io/en/stable/][here]].
+
+* Webinars
+** Luca Giorgetti - Genome 3D organization
+Hi-c data viz with Higlass browser. TAD can be defined as continuous regions in th egenome with high intensity of interaction and show a nice clear boundary, inside TADs we can clearly distinguish defined dots named 'loops' and also a higher complexity level of interaction defined by 'stripes'. A and B domains are highly variable during differentiation whereas TADs remain relatively fixed. There are 0 examples of an enhancer which lies outside of the boundaries of the promoter that it regulates. Cohesin and opposite CTCF sites allow for packing chromatin, but also acetylated cohesin is involved in keeping together sister chromatids during mitotic interphase. Getting rid of cohesin (Rad21) basically erases all chromatin conformation structures, whereas acute lack of CTCF get rid of loops but still some structure remain, which are specific and don't need the protein to form boundaries. Transcriptional levels are determined by distance as long as a regulatory element is within the same TAD as the promoter of the gene that it regulates, since TADs act as hard transcriptional barriers. By reducing the number of CTCF sites at boundaries we can reduce the strength of the boundary and expose specific genes to the effect of nearby regulatory regions (Anania et al., BiorXiv, 2021). Also, eQTLs with measurable effects are enriched within CTCF loops, meaning that the non-coding regulation of genes is intimately connected to the structural aspects of chromatin. Transcriptional levels scale with contact frequence, altough decaying at a slower rate, so this also allows long range interactions to be effective even if those regulatory regions are very far away, and this then of course decays in a larger way after a higher distance up until transcription is completely insulated by the boundary. So enhancer activity appears to be dependent on three main things: strength of the enhancer itself, presence of CTCF sites and distance wihin the same TAD. All these three variables of course intervene in the contact strength and time between promoters and regulatory regions, allowing a kind of  "gear switching" in transcription.

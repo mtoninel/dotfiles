@@ -1,0 +1,43 @@
+#! usr/bin/bash
+
+EXH_SIG="/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/CD8_all_rem_2717/design_subject_condition_onesample/CD8_narrow_samples_subject_condition_CD8_Exhausted_KvsCD8_Memory_K_p0.05_l2FC0_up_peaks.bed"
+TR1_K_INTS="/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/CD4_Tr1_all_samples/design_sub_tissue/tr1_K_at_least_3_samples_ints.bed"
+#"/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/consensus/CD4_consensus_narrow_igenomes_UCSC_hg38/consensus_peaks.mLb.clN.bed" #consensus may be too large to shuffle ints in
+TR1_UP_INTS="/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/CD4_Tr1_K_Tconv_PB/design_cell_onesample/CD4_Tr1_K_Tconv_PB_Tr1_K_vs_Conv_PB_p0.05_l2FC0_up_peaks.bed"
+
+# Extract observed number of intersections
+intersection="bedtools intersect -a ${EXH_SIG} -b ${TR1_UP_INTS} -f 0.5 | wc -l"
+
+obs=$(eval ${intersection})
+
+echo -e "The number of observed intersections is: ${obs}"
+
+# Set up the shuffling command to be executed, following by intersection
+shuf="bedtools shuffle -i ${TR1_UP_INTS} -g /storage/data/MAP/refs/annotations/hg38.chrom.sizes -incl ${TR1_K_INTS} -noOverlapping | bedtools intersect -a stdin -b ${EXH_SIG} -F 0.5 | wc -l"
+
+# Initialize a variable equal to 0 to then sum up for p-val calculation
+over_sims=0
+tot_olaps=0
+# Initiate permutations
+for i in {1..1000}
+do
+    echo -e "\nRunning iteration number ${i}"
+    count=$(eval ${shuf})
+    tot_olaps=$(expr $tot_olaps + $count)
+    echo -e "Random shuffling resulted in ${count} intersections\n"
+    if [ $count -gt $obs ]
+    then
+	let over_sims++
+    fi
+done
+
+# Calculate p-value
+p=$(awk "BEGIN {print (1 + ${over_sims}) / (1 + 1000)}")
+
+echo -e "Simulation over the observed number: ${over_sims}"
+
+echo -e "Calculated empirical p-value: ${p}"
+
+avg=$(awk "BEGIN {print $tot_olaps / 1000}")
+echo -e "Average overlaps: ${avg}"
+   

@@ -1,0 +1,44 @@
+/*
+ * -------------------------------------------------
+ *  Motif Analysis Nextflow config file
+ * -------------------------------------------------
+ */
+
+params {
+    outdir = "/storage/workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/CD4_Tr1_K_Tconv_PB/design_cell/homer"
+
+    // Reference genome file
+    genomesbase = "/storage/data/MAP/projects/til-epigenetics/bulk/atac-seq/results/reference_genome"
+
+    // Provide the input file 
+    homer_input_csv = '/storage/home/mtoninel/map/til-epigenetics/atac-seq/analysis/tables/Tr1_K_exh_signature_overlap.csv'
+
+    // Provide the file with motif PWM for the motif of the TF of interest
+    motif = ''
+
+    // Provide a TF name is desired, this is needed to identify motif
+    tf_name = ''
+
+    // Set to true to skip the specific process
+    skip_enrichment = false
+    skip_find_motif = true
+    skip_homer_diff = true
+}
+
+// Reference file paths
+params {
+  genomes {
+    'hg38'{
+       fasta = "${params.genomesbase}/genome.fa"
+       }
+   }
+}
+
+// Set batch size for job handling
+executor {
+           name = 'sge'
+           queueSize = 10
+        }
+ 
+// include IFOM base config
+includeConfig('./ifom.config')

@@ -1,0 +1,12 @@
+
+A collection of python code snippets
+* Subsetting dataframes in pandas
+  ** Subset based on index:
+  #+src_begin python
+  df = my-df.iloc[[0,1,2]]
+  #+src_end
+  ** Subset AnnData based on values of gene counts
+  #+src_begin python
+  data[data[: , 'gene_name'].X > 0.5, :]
+  #+src_end
+  

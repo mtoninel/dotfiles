@@ -1,0 +1,128 @@
+cd MyDocs/
+touch code_snippets_py.org
+cd Desktop/MyDocs/
+cd Desktop/
+rm org_mode_init.org\~ 
+ssh mtoninel@univa-comp.cluster.ifom.eu
+cd Desktop/
+ssh mtoninel@univa-comp.cluster.ifom.eu
+cd /shh:mtoninel@univa-comp.cluster.ifom.eu:/storage/home/mtoninel
+cd Desktop/
+exit
+cd Desktop/
+cd MyDocs/
+rm lab_notes.org\~ 
+cd Downloads/
+mv all-the-icons-dired-master/ ~/
+cd
+mv all-the-icons-dired-master/ Desktop/Emacs.app/Contents/MacOS/
+cd Desktop/MyDocs/
+mkdir snippets
+mv code_snippets_py.org snippets/
+cd snippets/
+touch code_snippets_R.org
+cd Desktop/
+ssh mtoninel@univa.cluster.ifom.eu
+ssh mtoninel@univa-cluster.ifom.eu
+ssh mtoninel@univa-comp.cluster.ifom.eu
+cd home/mtoninel/map/
+cd til-epigenetics/atac-seq/
+cd workingarea/
+cd MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/
+ls -la
+cd CD4_Tr1_Tconv_all_samples/
+cd ..
+cd workingarea/MAP/til-epigenetics/bulk/atac-seq/
+cd analysis/deseq2/
+cd CD4_Tr1_Tconv_all_samples/
+mkdir design_sub_condition
+ls
+tmux 
+cd workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/
+ls
+cd CD4_Tr1_Tconv_all_samples/ 
+ls
+mkdir design_nested_sub
+ls
+cd ..
+ls
+mkdir CD4_Tr1_K_Tconv_PB
+l
+ls
+cd CD4_Tr1_K_Tconv_PB/
+mkdir design_cell
+cd workingarea/MAP/til-epigenetics/bulk/atac-seq/analysis/deseq2/
+ls
+cd CD4_Tr1_K_Tconv_PB/
+ls
+cd design_cell/
+ls
+cd img/
+ls
+cd pre_limma/
+ls
+cd ..
+ls
+mkdir volcanoes
+ls
+cd ..
+scp img mtoninel@p-mtoninel:/Users/mtoninel/Desktop/DESeq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp img/ mtoninel@p-mtoninel:/Users/mtoninel/Desktop/DESeq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp img/ mtoninel@p-mtoninel:/Desktop/DESeq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp -r img/ mtoninel@p-mtoninel:/Desktop/DESeq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp -r img/ mtoninel@p-mtoninel:/Users/mtoninel/Desktop/DESeq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp -r img/ mtoninel@p-mtoninel:/Users/mtoninel/Desktop/Deseq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+scp -r img/ mtoninel@p-mtoninel:/Desktop/Deseq2_analysis/CD4_conv_vs_Tr1/Tr1_K_vs_Conv_PB
+ls
+cd img/
+ls
+rm CD4_Tr1_K_Tconv_PBTr1_K_vs_Conv_PB_piechart*
+ls
+cd ..
+ls
+ls 
+CD4_Tr1_K_Tconv_PB_Tr1_K_vs_Conv_PB_p0.05_l2FC0_neg.csv         CD4_Tr1_K_Tconv_PB_Tr1_K_vs_Conv_PB_p0.05_l2FC0_up_peaks.bed  dds_CD4_Tr1_K_Tconv_PB.rds                       rld_CD4_Tr1_K_Tconv_PB.rds  t_sne_CD4_Tr1_K_Tconv_PB_perplexity_2.pdf
+ls
+mkdir GREAT_analysis
+ls
+cd GREAT_analysis/
+ls
+tr1_k_vs_conv_pb_shown-EnsemblGenes.tsv  tr1_k_vs_conv_pb_shown-GOBiologicalProcess.tsv  tr1_k_vs_conv_pb_shown-GOCellularComponent.tsv  tr1_k_vs_conv_pb_shown-GOMolecularFunction.tsv
+cd ../../..
+cd ..
+cd TOBIAS_footprint/CD8_conditions_meme_HS_gencode_v38/
+ls
+cd TFBS
+ls
+tr1_k_vs_conv_pb_shown-EnsemblGenes.tsv  tr1_k_vs_conv_pb_shown-GOBiologicalProcess.tsv  tr1_k_vs_conv_pb_shown-GOCellularComponent.tsv  tr1_k_vs_conv_pb_shown-GOMolecularFunction.tsv
+cd ../../../deseq2/CD8_all_rem_2717/
+ls
+cd design_subject_condition/
+ls
+CD8_narrow_samples_subject_condition_CD8_Exhausted_KvsCD8_Memory_K_p0.05_l2FC0_up_peaks_corrected.bed           dds_CD8_narrow_samples_subject_condition.rds
+cd ../..
+cd CD4_Tr1_K_Tconv_PB/
+ls
+cd design_cell/
+ls
+cd ..
+cd ../Downloads/
+ls
+cd aspell-0.60.8/
+ls
+make install
+mv ~/Downloads/emacs-files-master/org-latex-export-standard-setup.org ./
+ls
+mv main.org main.tex
+cd chapters/
+ls
+mv materials_methods.org materials_methods.tex
+cd home/mtoninel/
+l
+ls
+mkdir scrna_cd8_exhausted
+cd scrna_cd8_exhausted/
+mv  ../scatac/Satpathy_et_al_2019_analysis/integrate_scrna/5p_2597_PRE.ipynb ./
+cp ./5p_2597_PRE.ipynb  ../scatac/Satpathy_et_al_2019_analysis/integrate_scrna/5p_2597_PRE.ipynb
+cp  ../scatac/Satpathy_et_al_2019_analysis/integrate_scrna/5p_2597_POST.ipynb ./
+conda info --envs

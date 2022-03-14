@@ -1,0 +1,9 @@
+# Ignore a series of files from Emacs
+emacs.d/*.eld
+**/backup/
+**/eshell/
+**/transient/
+.emacs.d/tramp
+**/auto-save-list/
+**/log
+*/cache

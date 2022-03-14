@@ -309,11 +309,25 @@
 
   ; SET git on local and then clone repos here and then push as well???
   
-(use-package counsel-projectile
-  :after projectile
-  :config (counsel-projectile-mode))
+;; R-internals manual
+;;; ESS
+(add-hook 'ess-mode-hook
+      (lambda ()
+        (ess-set-style 'C++ 'quiet)
+        ;; Because
+        ;;                                 DEF GNU BSD K&R C++
+        ;; ess-indent-level                  2   2   8   5   4
+        ;; ess-continued-statement-offset    2   2   8   5   4
+        ;; ess-brace-offset                  0   0  -8  -5  -4
+        ;; ess-arg-function-offset           2   4   0   0   0
+        ;; ess-expression-offset             4   2   8   5   4
+        ;; ess-else-offset                   0   0   0   0   0
+        ;; ess-close-brace-offset            0   0   0   0   0
+        (add-hook 'local-write-file-hooks
+              (lambda ()
+            (ess-nuke-trailing-whitespace)))))
 
-; Configure latex preview pane for seeing latex compiled in an adjacent buffer
-(package-install 'latex-preview-pane)
-(latex-preview-pane-enable)
+;;(setq ess-nuke-trailing-whitespace-p 'ask)
+;; or even
+(setq ess-nuke-trailing-whitespace-p t)
 

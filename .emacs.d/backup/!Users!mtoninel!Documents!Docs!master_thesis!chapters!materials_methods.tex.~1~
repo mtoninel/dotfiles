@@ -1,7 +1,0 @@
-#+STARTUP: inlineimages
-#+SETUPFILE: ~/Documents/Docs/master_thesis/org-latex-export-standard-setup.org
-
-#+LaTeX_CLASS: report
-#+LaTeX_CLASS_OPTIONS: [letterpaper]
-#+OPTIONS: toc:t
-

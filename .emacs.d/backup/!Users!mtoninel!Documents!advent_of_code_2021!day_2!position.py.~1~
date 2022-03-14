@@ -1,5 +1,0 @@
-# PUZZLE 1
-# Determine the submarine position
-with open('./position_input.txt') as file:
-    pos = file.readlines()
-print(class(pos))

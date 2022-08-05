@@ -47,7 +47,8 @@
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 (package-initialize)
 (unless package-archive-contents
@@ -94,7 +95,7 @@
 (use-package all-the-icons)
 
 ;; all-the-icons-dired as well, this has been downloaded as zip from github
-(add-to-list 'load-path (expand-file-name "Desktop/Emacs.app/Contents/MacOS/all-the-icons-dired-master"))
+(add-to-list 'load-path (expand-file-name "Applications/Emacs.app/Contents/MacOS/all-the-icons-dired-master"))
 (load "all-the-icons-dired.el")
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
@@ -331,3 +332,8 @@
 ;; or even
 (setq ess-nuke-trailing-whitespace-p t)
 
+;; Support Markdown
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
